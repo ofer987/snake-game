@@ -75,9 +75,10 @@ mainloop:
 		case p := <-pointsChan:
 			g.addPoints(p)
 		case e := <-keyboardEventsChan:
-			switch e.eventType {
-			case MOVE:
-				d := keyToDirection(e.key)
+			var command = e.eventType
+			switch command {
+			case MOVE_LEFT, MOVE_RIGHT, MOVE_UP, MOVE_DOWN:
+				d := keyToDirection(command)
 				g.arena.snake.changeDirection(d)
 			case RETRY:
 				g.retry()
